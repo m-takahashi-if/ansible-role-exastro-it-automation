@@ -1,3 +1,11 @@
+- name: Install unarchive module dependencies
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - tar
+      - unzip
+
 - name: Unarchive Exastro IT Automation installer package
   unarchive:
     src: https://github.com/exastro-suite/it-automation/archive/v{{ exastro_version }}.tar.gz
