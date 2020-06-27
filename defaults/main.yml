@@ -1,0 +1,39 @@
+exastro_version: "1.4.1"
+
+exastro_answers:
+  ita_directory: /exastro
+  ita_language: ja_JP
+  ita_os: RHEL8
+  db_root_password: db_root_password
+  db_name: db_name
+  db_username: db_username
+  db_password: db_password
+  ita_base: "yes"
+  material: "no"
+  createparam: "yes"
+  hostgroup: "yes"
+  ansible_driver: "yes"
+  cobbler_driver: "no"
+  scrab_driver: "no"
+  openaudit_driver: "no"
+  openstack_driver: "no"
+  dsc_driver: "no"
+  openshift_driver: "no"
+  ansibletower_driver: "no"
+  testplayer_driver: "no"
+
+exastro_builder_setting:
+  linux_os: CentOS8
+  redhat_user_name: null
+  redhat_user_password: null
+  pool_id: null
+  server_address: null
+  default_password: null
+  cobbler_ip: null
+  cobbler_subnet: null
+  cobbler_gateway: null
+  cobbler_dns: null
+  dynamic_address_min: null
+  dynamic_address_max: null
+
+ita_http: no

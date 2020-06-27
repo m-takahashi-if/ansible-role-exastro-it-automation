@@ -1,0 +1,40 @@
+- name: Unarchive Exastro IT Automation installer package
+  unarchive:
+    src: https://github.com/exastro-suite/it-automation/archive/v{{ exastro_version }}.tar.gz
+    dest: /root/
+    remote_src: yes
+
+- name: Change permission of Exastro IT Automation installer
+  shell: find /root/it-automation-{{ exastro_version }}/ita_install_package/ -type f -name *.sh | xargs chmod 755
+
+- name: Update ita_answers.txt
+  lineinfile:
+    dest: /root/it-automation-{{ exastro_version }}/ita_install_package/install_scripts/ita_answers.txt
+    state: present
+    regexp: '^{{ item.key }}:'
+    line: '{{ item.key }}:{{ item.value }}'
+  loop: "{{ exastro_answers | dict2items }}"
+
+- name: Update ita_builder_setting.txt
+  lineinfile:
+    dest: /root/it-automation-{{ exastro_version }}/ita_install_package/install_scripts/ita_builder_setting.txt
+    state: present
+    regexp: '^{{ item.key }}:'
+    line: '{{ item.key }}:{{ item.value }}'
+  loop: "{{ exastro_builder_setting | dict2items }}"
+
+- name: Install Exastro IT Automation
+  command: ./ita_builder_online.sh
+  args:
+    chdir: /root/it-automation-{{ exastro_version }}/ita_install_package/install_scripts/
+
+- name: get /root/.ssh/config stat
+  stat:
+    path: /root/.ssh/config
+  register: config_stat_result
+
+- name: Change permission of /root/.ssh/config
+  file:
+    path: /root/.ssh/config
+    mode: "600"
+  when: config_stat_result.stat.isreg is defined and config_stat_result.stat.isreg
